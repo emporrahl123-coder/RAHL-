@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAHL - Advanced AI PWA</title>
+    <meta name="description" content="Most Powerful AI with PWA Capabilities">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <link rel="apple-touch-startup-image" href="/splash.png">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/src/ui/styles/main.css">
+    <link rel="stylesheet" href="/src/ui/styles/dark-theme.css">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/src/main.js" as="script">
+    <link rel="preload" href="/src/core/ai-engine/neural-reasoner.js" as="script">
+</head>
+<body>
+    <!-- Main App Container -->
+    <div id="app">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <h1>RAHL</h1>
+                <span class="ai-status" id="aiStatus">Loading AI...</span>
+            </div>
+            <div class="controls">
+                <button id="voiceToggle" class="icon-button" title="Voice Control">
+                    🎤
+                </button>
+                <button id="cameraToggle" class="icon-button" title="Camera Input">
+                    📷
+                </button>
+                <button id="settingsToggle" class="icon-button" title="Settings">
+                    ⚙️
+                </button>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Chat Interface -->
+            <section class="chat-section">
+                <div class="chat-container" id="chatContainer">
+                    <!-- Messages will appear here -->
+                </div>
+                
+                <div class="input-section">
+                    <div class="input-group">
+                        <textarea 
+                            id="userInput" 
+                            placeholder="Ask RAHL anything... (or use voice/camera)"
+                            rows="3"
+                        ></textarea>
+                        <div class="input-actions">
+                            <button id="sendButton" class="send-button">Send</button>
+                            <button id="voiceButton" class="voice-button">
+                                <span class="pulse-ring"></span>
+                                🎤
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="modality-selector">
+                        <button class="modality-btn active" data-modality="text">Text</button>
+                        <button class="modality-btn" data-modality="voice">Voice</button>
+                        <button class="modality-btn" data-modality="image">Image</button>
+                        <button class="modality-btn" data-modality="video">Video</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Dashboard -->
+            <section class="dashboard-section">
+                <div class="dashboard-grid">
+                    <div class="card ai-status-card">
+                        <h3>AI Status</h3>
+                        <div class="status-indicators">
+                            <div class="status-item">
+                                <span class="status-dot online"></span>
+                                <span>Core AI</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-dot processing"></span>
+                                <span>Vision Module</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-dot ready"></span>
+                                <span>Speech Module</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card capabilities-card">
+                        <h3>Active Capabilities</h3>
+                        <div class="capabilities-grid" id="capabilitiesGrid">
+                            <!-- Dynamic capabilities will appear here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-info">
+                <span class="connection-status" id="connectionStatus">
+                    Online • AI Ready
+                </span>
+                <span class="model-info" id="modelInfo">
+                    Using Neural Engine v2.0
+                </span>
+            </div>
+            <button id="installButton" class="install-button" style="display: none;">
+                Install RAHL
+            </button>
+        </footer>
+    </div>
+    
+    <!-- Camera Preview Modal -->
+    <div id="cameraModal" class="modal">
+        <div class="modal-content">
+            <video id="cameraPreview" autoplay></video>
+            <button id="captureButton">Capture & Analyze</button>
+            <button id="closeCamera">Close</button>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script type="module" src="/src/main.js"></script>
+    
+    <!-- Register Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js');
+            });
+        }
+    </script>
+</body>
+</html>
